@@ -1,0 +1,42 @@
+{
+    "recipes": [
+      {
+        "id": "abc123", 
+        "name": "Spaghetti Carbonara",
+        "isFavorite": false,
+        "imageURL": "https://example.com/spaghetti.jpg",
+        "skillLevel": "Medium",
+        "timeNeeded": "30 minutes",
+        "cuisine": "Italian",
+        "ingredients": [
+          { "quantity": "200g", "name": "Spaghetti" },
+          { "quantity": "2", "name": "Eggs" },
+          { "quantity": "100g", "name": "Pancetta" },
+          { "quantity": "50g", "name": "Parmesan Cheese" },
+          { "quantity": "To taste", "name": "Black Pepper" }
+        ],
+        "description": "A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
+        "steps": "1. Cook spaghetti. 2. Fry pancetta. 3. Mix eggs and cheese. 4. Combine everything off heat."
+      },
+      {
+        "id": "def456",
+        "name": "Chicken Tikka Masala",
+        "isFavorite": true,
+        "imageURL": "https://example.com/chicken-tikka.jpg",
+        "skillLevel": "Advanced",
+        "timeNeeded": "1 hour",
+        "cuisine": "Indian",
+        "ingredients": [
+          { "quantity": "500g", "name": "Chicken Breast" },
+          { "quantity": "1 cup", "name": "Yogurt" },
+          { "quantity": "2 tbsp", "name": "Garam Masala" },
+          { "quantity": "1 can", "name": "Tomato Puree" },
+          { "quantity": "1", "name": "Onion" },
+          { "quantity": "2 cloves", "name": "Garlic" },
+          { "quantity": "1 tbsp", "name": "Ginger" }
+        ],
+        "description": "A flavorful, creamy tomato-based chicken dish with Indian spices.",
+        "steps": "1. Marinate chicken. 2. Cook onion, garlic, and ginger. 3. Add spices and tomato puree. 4. Cook chicken in sauce."
+      }
+    ]
+  }
