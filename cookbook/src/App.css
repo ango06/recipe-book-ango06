@@ -1,1 +1,71 @@
+body {
+    
+}
 
+h1 {
+    font-size: 4rem;
+}
+p {
+    font-size: 1.5rem;
+}
+section {
+    margin: 10px;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+    background-color: pink;
+}
+#navbar li {
+    float: right;
+
+    font-size: 1.5rem;
+}
+#navbar li a {
+    display: block;
+    padding: 1rem;
+    background-color: #dddddd;
+    text-decoration: none;
+}
+#navbar li a:hover {
+    background-color: blue;
+}
+
+#recipes {
+    width: 100%;
+    background-color: lightsalmon;
+    border-collapse: collapse
+}
+#recipes thead {
+    background-color: palevioletred;
+}
+#recipes tr {
+    border-bottom: 1px solid black;
+}
+#recipes th, td {
+    padding: 10px;
+    border: none;
+}
+
+
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.top-space {
+    margin-top: 80px;
+}
