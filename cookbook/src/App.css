@@ -5,6 +5,9 @@ body {
 h1 {
     font-size: 4rem;
 }
+h2 {
+    font-size: 3rem;
+}
 p {
     font-size: 1.5rem;
 }
@@ -54,6 +57,29 @@ section {
     border: none;
 }
 
+#book {
+    width: 70%;
+    height: 38rem;
+    align-self: center;
+    justify-self: center;
+    border-radius: 20px;
+    background-color:rosybrown;
+}
+.page {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    scrollbar-width: none;   
+}
+#divider {
+    width: 0.5rem;
+    height: 38rem;
+    background-color: darkblue;
+}
+#book ul {
+    list-style-type:square;
+}
+
 
 
 .flexbox {
@@ -62,10 +88,36 @@ section {
     justify-content: space-around;
 }
 
+.flexCol {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
 .text-center {
     text-align: center;
 }
 
 .top-space {
     margin-top: 80px;
+}
+
+.new-recipe-button {
+    float: right;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: darkcyan;
+}
+
+.page-button {
+    align-items: center;
+    justify-content: space-around;
+    justify-items: center;
+}
+.page-button button {
+    padding: 10px;
+    color: white;
+    background-color: midnightblue;
 }
