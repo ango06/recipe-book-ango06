@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router";
+
 import recipesData from "../recipes.json";
 import RecipeRow from "../components/RecipeRow.tsx";
 import { Recipe } from "../types/recipe.ts";
 
+
 const RecipeList = () => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/new-recipe");
+    };
 
     return (
         <>
@@ -10,7 +19,7 @@ const RecipeList = () => {
 
             <input type="checkbox" id="myCheckbox" />
             <label htmlFor="myCheckbox">Favorites only</label>
-            <button className="new-recipe-button">New Recipe</button>
+            <button className="new-recipe-button" onClick={handleClick}>New Recipe</button>
 
             <section>
                 <table id="recipes">

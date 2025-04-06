@@ -81,6 +81,15 @@ section {
 }
 
 
+.overlay {
+    width: 40%;
+    padding: 20px;
+    align-self: center;
+    justify-self: center;
+    background-color: darkslategray;
+    border-radius: 20px;
+    color: white;
+}
 
 .flexbox {
     display: flex;
