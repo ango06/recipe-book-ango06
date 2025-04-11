@@ -17,3 +17,12 @@ export interface Recipe {
 export interface RecipeInfoProps {
     recipes: Recipe[];
 }
+
+export interface DishOverlayProps extends RecipeInfoProps {
+    handleClose?: () => void;
+}
+
+export interface NewRecipeOverlayProps extends Partial<RecipeInfoProps> {
+    handleClose?: () => void;
+}
+

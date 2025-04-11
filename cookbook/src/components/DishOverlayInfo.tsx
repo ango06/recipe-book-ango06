@@ -1,12 +1,16 @@
+import { DishOverlayProps } from "../types/recipe.ts";
+import CloseIcon from '@mui/icons-material/Close';
 
-import { RecipeInfoProps } from "../types/recipe.ts";
-
-const DishOverlay: React.FC<RecipeInfoProps> = ({ recipes }) => {
-
+const DishOverlayInfo: React.FC<DishOverlayProps> = ({ recipes, handleClose }) => {
+    
     return (
         <>
             {recipes.map(recipe => (
                 <>
+                    <div style={{ display: 'flex', justifyContent: 'center', position: 'relative'}}>
+                        <CloseIcon style={{ position: 'absolute', left: 0, margin: 0, fontSize: '40px', cursor: 'pointer'}} onClick={handleClose} />
+                        <h2 className="text-center">New Dish</h2>
+                    </div>
                     <h2 className="text-center">{recipe.name}</h2>
                     <img src={recipe.imageURL} style={{width: '100%', height: '50%'}}></img>
                     <p className="text-center">{recipe.description}</p>
@@ -21,9 +25,8 @@ const DishOverlay: React.FC<RecipeInfoProps> = ({ recipes }) => {
                     <p>{recipe.steps}</p>
                 </>
             ))}
-
         </>
     )
 };
 
-export default DishOverlay;
+export default DishOverlayInfo;

@@ -4,7 +4,7 @@ const Page: React.FC<RecipeInfoProps> = ({ recipes }) => {
 
     return (
         <>
-            <div className="page">
+            <div className="page scroll">
                 {recipes.map(recipe => (
                     <>
                         <h2>{recipe.name}</h2>
@@ -21,7 +21,7 @@ const Page: React.FC<RecipeInfoProps> = ({ recipes }) => {
                 ))}
             </div>
             <div id="divider"></div>
-            <div className="page">
+            <div className="page scroll">
                 {recipes.map(recipe => (
                     <>
                         <h2 className="text-center">Steps</h2>

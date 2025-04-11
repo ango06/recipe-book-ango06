@@ -63,32 +63,35 @@ section {
     align-self: center;
     justify-self: center;
     border-radius: 20px;
-    background-color:rosybrown;
+    background-color:navajowhite;
 }
 .page {
     flex: 1;
     padding: 40px;
-    overflow-y: auto;
-    scrollbar-width: none;   
 }
 #divider {
-    width: 0.5rem;
+    width: 0.25rem;
     height: 38rem;
-    background-color: darkblue;
+    background-color:sienna;
 }
 #book ul {
     list-style-type:square;
 }
 
 
+.scroll {
+    overflow-y: auto;
+    scrollbar-width: none;   
+}
+
 .overlay {
     width: 40%;
     padding: 20px;
     align-self: center;
     justify-self: center;
-    background-color: darkslategray;
+    background-color:darksalmon;
     border-radius: 20px;
-    color: white;
+    color:darkslateblue;
 }
 
 .flexbox {
@@ -97,6 +100,7 @@ section {
     justify-content: space-around;
 }
 
+/* unused ?? */
 .flexCol {
     display: flex;
     flex-direction: column;
@@ -111,6 +115,7 @@ section {
     margin-top: 80px;
 }
 
+/* not used */
 .new-recipe-button {
     float: right;
     padding: 10px;

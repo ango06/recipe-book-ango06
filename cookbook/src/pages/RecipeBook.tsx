@@ -1,22 +1,46 @@
+import { useState } from 'react';
+
 import recipesData from "../recipes.json";
-import Page from "../components/Page.tsx";
 import { Recipe } from "../types/recipe.ts";
+import Page from "../components/Page.tsx";
+import NewRecipe from "./NewRecipe.tsx";
+
+import {Box, Button, FormControlLabel, Modal, Switch } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 const RecipeBook = () => {
 
     const recipes = recipesData.recipes;
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    /*
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/new-recipe");
+    };
+    */
     
     return (
         <>
             <h1 className="text-center top-space">Cookbook</h1>
 
-            <input type="checkbox" id="myCheckbox" />
-            <label htmlFor="myCheckbox">Favorites only</label>
-            <button className="new-recipe-button">New Recipe</button>
-            <br />
+            {/* do I need justify content or keep float right */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '70%', margin: '20px 10px'}}>
+                <FormControlLabel control={<Switch />} label="Favorites only" /> {/* ADD onChange to Switch */}
+                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />} onClick={handleOpen}>New Recipe</Button>
+            </div>
+
+            <Modal open={open} onClose={handleClose}>
+                <Box>
+                    <NewRecipe handleClose={handleClose} />
+                </Box>
+            </Modal>
 
             <div id="book" className="flexbox">
-                {<Page recipes={recipes as Recipe[]} />}
+                    {<Page recipes={recipes as Recipe[]} />}
             </div>
         
             <div className="page-button">

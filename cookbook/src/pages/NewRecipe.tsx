@@ -1,11 +1,99 @@
 
-const NewRecipe = () => {
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
+import { NewRecipeOverlayProps } from "../types/recipe.ts";
+
+const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
 
     return (
-        <div className="top-space overlay">
-            <h3>New Dish</h3>
+        <div className="top-space overlay scroll" style={{ height: '48rem'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', position: 'relative'}}>
+                <CloseIcon style={{ position: 'absolute', left: 0, margin: 0, fontSize: '40px', cursor: 'pointer'}} onClick={handleClose} />
+                <h2 className="text-center">New Dish</h2>
+            </div>
+           
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                <TextField
+                    required
+                    label="Dish name"
+                    variant="filled"
+                />
+                <TextField
+                    required
+                    label="Image URL"
+                    variant="filled"
+                />
 
+                {/* remove demo tag? */}
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">Skill level</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label" 
+                        name="radio-buttons-group"
+                    >
+                        <FormControlLabel value="beginner" control={<Radio />} label="Beginner" />
+                        <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+                        <FormControlLabel value="advanced" control={<Radio />} label="Advanced" />
+                    </RadioGroup>
+                </FormControl>
+
+                <TextField
+                    id="filled-number"
+                    label="Time required"
+                    type="number"
+                    variant="filled"
+                    slotProps={{
+                        inputLabel: {
+                        shrink: true,
+                        },
+                    }}
+                />
+
+                <FormControl>
+                    <FormLabel>Cuisine</FormLabel>
+                    <RadioGroup>
+                        <FormControlLabel value="italian" control={<Radio />} label="Italian" />
+                        <FormControlLabel value="indian" control={<Radio />} label="Indian" />
+                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    </RadioGroup>
+                </FormControl>
+
+                <h3>Ingredients</h3>
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
+                    <Button variant="contained">+</Button>
+                    <TextField
+                        label="Quantity"
+                        type="number"
+                        variant="filled"
+                        slotProps={{
+                            inputLabel: {
+                            shrink: true,
+                            },
+                        }}
+                    />
+                    <TextField
+                        required
+                        label="Name"
+                        variant="filled"
+                    />
+                </Box>
+
+                <TextField
+                    label="Dish description"
+                    variant="filled"
+                    multiline
+                    rows={4}
+                />
+                <TextField
+                    label="Steps"
+                    variant="filled"
+                    multiline
+                    rows={4}
+                />
+            </Box>
+
+            {/*
             <h6>Dish Name</h6>
             <input type="text" id="dishName" />
             <label htmlFor="dishName">Dish Name</label>
@@ -63,6 +151,7 @@ const NewRecipe = () => {
             <input type="submit" id="submit" />
             <label htmlFor="submit">Submit</label>
             <br />
+            */}
         </div>
     )
 };
