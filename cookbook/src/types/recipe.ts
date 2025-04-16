@@ -18,7 +18,8 @@ export interface RecipeInfoProps {
     recipes: Recipe[];
 }
 
-export interface DishOverlayProps extends RecipeInfoProps {
+export interface DishOverlayProps {
+    recipe: Recipe;
     handleClose?: () => void;
 }
 

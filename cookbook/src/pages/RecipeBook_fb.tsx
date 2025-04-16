@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { getFirestore } from "firebase/firestore";
 
-// interface
+// interfaces and functions
 import { Recipe } from "../types/recipe.ts";
-import {  getRecipes } from "../handleRecipes.ts";
+import { getRecipes } from "../handleRecipes.ts";
 
+// components
 import Page from "../components/Page.tsx";
 import NewRecipe from "./NewRecipe.tsx";
 
@@ -26,7 +27,6 @@ const RecipeBook = () => {
 
     // upon mount or db change
     useEffect(() => {
-        console.log("useEffect is running");
         async function fetchData() {
             const recipeList = await getRecipes(db);
             setRecipes(recipeList);
@@ -34,7 +34,6 @@ const RecipeBook = () => {
             setNumRecipes(recipeList.length);
         }
         fetchData();
-        console.log("Fetch data ran");
     }, [db]);
 
     // Turning pages
@@ -81,7 +80,7 @@ const RecipeBook = () => {
 
             {/* should I justify content or keep float right */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '68rem', margin: '20px 10px'}}>
-                <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites}/>
+                <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites} />
                 <Button onClick={handleOpen} style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />}>New Recipe</Button>
             </div>
 

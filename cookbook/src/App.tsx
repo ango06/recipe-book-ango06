@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import NavBar from "./components/NavBar.tsx";
 import Home from "./pages/Home.tsx";
 import List from "./pages/RecipeList.tsx";
-import Book from "./pages/RecipeBook.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
 
 import RecipeList from "./pages/RecipeList_fb.tsx";
@@ -19,13 +18,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/recipe-list" element={<List />} />
-        <Route path="/recipe-book" element={<Book />} />
+        <Route path="/recipe-book" element={<RecipeBook />} />
         <Route path="*" element={<PageNotFound />} />
 
         {/** TESTING THINGS HERE */}
         <Route path="/test" element={<TestRecipes />} />
         <Route path="/list" element={<RecipeList />} />
-        <Route path="/book" element={<RecipeBook />} />
       </Routes>
     </BrowserRouter>
   );

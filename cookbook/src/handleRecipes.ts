@@ -12,6 +12,20 @@ export async function getRecipes(db: Firestore) {
     return recipeList;
 }
 
+// get a recipe by name
+export async function getRecipe(db: Firestore, name: string){
+    const recipesCol = collection(db, "recipes");
+    const q = query(recipesCol, where("name", "==", name));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+        console.warn(`No recipe found with dish name: ${name}`);
+        return null;
+    }
+
+    return snapshot.docs[0].ref;
+}
+
 // add a new recipe
 export async function addRecipe(db: Firestore, recipe: Recipe){ // interface
     const recipes = collection(db, "recipes");
@@ -28,20 +42,6 @@ export async function addRecipe(db: Firestore, recipe: Recipe){ // interface
     });
 }
 
-// get a recipe by name
-export async function getRecipe(db: Firestore, name: string){
-    const recipesCol = collection(db, "recipes");
-    const q = query(recipesCol, where("name", "==", name));
-    const snapshot = await getDocs(q);
-
-    if (snapshot.empty) {
-        console.warn(`No recipe found with dish name: ${name}`);
-        return null;
-    }
-
-    return snapshot.docs[0].ref;
-}
-
 // remove a recipe
 export async function removeRecipe(recipe: DocumentReference){
     await deleteDoc(recipe);
@@ -53,7 +53,6 @@ export async function changeFavorite(recipe: DocumentReference, current: boolean
         isFavorite: !current
     });
 }
-
 
 // testing
 export async function main() {
