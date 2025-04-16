@@ -6,19 +6,19 @@ import RecipeRow from "../components/RecipeRow.tsx";
 import NewRecipe from "./NewRecipe.tsx";
 
 import { Button, Box, FormControlLabel, Modal, Switch } from '@mui/material';
-import { createSvgIcon, Table, TableContainer, TableBody, TableHead, TableRow, TableCell } from '@mui/material';
+import { createSvgIcon } from '@mui/material'; // ble, TableContainer, TableBody, TableHead, TableRow, TableCell
 
 const RecipeList = () => {
 
+    // New Recipe pop up
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // const navigate = useNavigate();
+    // Turning on favorites only
+    const [showFavorites, setFavoritesOnly] = useState(false);
+    const handleShowFavorite = () => setFavoritesOnly(!showFavorites);
 
-    // const handleClick = () => {
-    //     navigate("/new-recipe");
-    // };
 
     {/* if I don't import from the icon thing */}
     const PlusIcon = createSvgIcon(
@@ -39,8 +39,8 @@ const RecipeList = () => {
         <>
             <h1 className="text-center top-space">Chef's List</h1>
 
-            <div style={{ margin: '20px'}}>
-                <FormControlLabel control={<Switch />} label="Favorites only" /> {/* ADD onChange to Switch */}
+            <div style={{ margin: '1rem 8.5rem'}}>
+                <FormControlLabel control={<Switch />} label="Favorites only" onChange={handleShowFavorite} />
                 <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<PlusIcon />} onClick={handleOpen}>New Recipe</Button>
             </div>
 
@@ -50,34 +50,17 @@ const RecipeList = () => {
                 </Box>
             </Modal>
 
-            <TableContainer>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Dish</TableCell>
-                        <TableCell align="right">Cuisine</TableCell>
-                        <TableCell align="right">Time</TableCell>
-                        <TableCell align="right">Skill Level</TableCell>
-                        <TableCell align="right">Description</TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-     
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
-            <hr></hr>
-
-            <section>
+            <section style={{ justifySelf: 'center', width: '90rem'}}>
                 <table id="recipes">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Dish</th>
                             <th>Cuisine</th>
                             <th>Time</th>
                             <th>Skill Level</th>
                             <th>Description</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,3 +73,6 @@ const RecipeList = () => {
 };
 
 export default RecipeList;
+
+
+// JSON VERSION

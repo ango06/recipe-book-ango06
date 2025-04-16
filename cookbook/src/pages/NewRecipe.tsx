@@ -1,3 +1,4 @@
+import { useState } from 'react';
 
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -5,6 +6,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import { NewRecipeOverlayProps } from "../types/recipe.ts";
 
 const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
+
+    const [formData, setFormData] = useState({
+        dishName: "",
+        imageURL: "",
+        skillLevel: "", 
+        timeNeeded: "",
+        cuisine: "",
+        description: "",
+        steps: ""
+    });
+
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target; // each needs a name and value
+        setFormData(data => ({ ...data, [name]: value }));
+    }
+    
+    // do ingredients
+    // handle submit
 
     return (
         <div className="top-space overlay scroll" style={{ height: '48rem'}}>
@@ -15,11 +34,17 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
            
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
                 <TextField
+                    name="dishName"
+                    value={formData.dishName}
+                    onChange={handleFormChange}
                     required
                     label="Dish name"
                     variant="filled"
                 />
                 <TextField
+                    name="imageURL"
+                    value={formData.imageURL}
+                    onChange={handleFormChange}
                     required
                     label="Image URL"
                     variant="filled"
@@ -39,8 +64,10 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                 </FormControl>
 
                 <TextField
-                    id="filled-number"
-                    label="Time required"
+                    name="timeNeeded"
+                    value={formData.timeNeeded}
+                    onChange={handleFormChange}
+                    label="Time needed"
                     type="number"
                     variant="filled"
                     slotProps={{
@@ -80,17 +107,33 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                 </Box>
 
                 <TextField
+                    name="description"
+                    value={formData.description}
+                    onChange={handleFormChange}
                     label="Dish description"
                     variant="filled"
                     multiline
                     rows={4}
                 />
                 <TextField
+                    name="steps"
+                    value={formData.steps}
+                    onChange={handleFormChange}    
                     label="Steps"
                     variant="filled"
                     multiline
                     rows={4}
                 />
+
+                <form>
+                    <Button>SUBMIT</Button>
+                </form>
+
+                <form>
+                    <label>
+                    <input type="submit" />
+                    </label>
+                </form>
             </Box>
 
             {/*

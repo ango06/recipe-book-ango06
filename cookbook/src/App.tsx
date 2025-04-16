@@ -7,6 +7,10 @@ import List from "./pages/RecipeList.tsx";
 import Book from "./pages/RecipeBook.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
 
+import RecipeList from "./pages/RecipeList_fb.tsx";
+import RecipeBook from "./pages/RecipeBook_fb.tsx";
+import TestRecipes from "./test.tsx";
+
 function App() {
 
   return (
@@ -17,6 +21,11 @@ function App() {
         <Route path="/recipe-list" element={<List />} />
         <Route path="/recipe-book" element={<Book />} />
         <Route path="*" element={<PageNotFound />} />
+
+        {/** TESTING THINGS HERE */}
+        <Route path="/test" element={<TestRecipes />} />
+        <Route path="/list" element={<RecipeList />} />
+        <Route path="/book" element={<RecipeBook />} />
       </Routes>
     </BrowserRouter>
   );

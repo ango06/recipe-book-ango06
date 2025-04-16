@@ -2,37 +2,59 @@ import { useState } from 'react';
 
 import recipesData from "../recipes.json";
 import { Recipe } from "../types/recipe.ts";
+
 import Page from "../components/Page.tsx";
 import NewRecipe from "./NewRecipe.tsx";
 
+// Material UI imports
 import {Box, Button, FormControlLabel, Modal, Switch } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 const RecipeBook = () => {
 
-    const recipes = recipesData.recipes;
+    // const recipes = recipesData.recipes;
+    // ???
+    const recipes = recipesData.recipes as Recipe[];
+    const numRecipes = recipes.length;
 
+    // New Recipe pop up
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    /*
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate("/new-recipe");
+    // Turning pages
+    const [index, setIndex] = useState(1);
+    const handleLeft = () => {
+        if (index > 1) {
+            setIndex(index - 1);
+        }
     };
-    */
-    
+    const handleRight = () => {
+        if (index < numRecipes) {
+            setIndex(index + 1);
+        }
+    };
+
+    // Turning on favorites only
+    const [showFavorites, setFavoritesOnly] = useState(false);
+    const handleShowFavorite = () => setFavoritesOnly(!showFavorites);
+
+    const currentRecipe = recipes[index - 1];
+
     return (
         <>
             <h1 className="text-center top-space">Cookbook</h1>
 
-            {/* do I need justify content or keep float right */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '70%', margin: '20px 10px'}}>
-                <FormControlLabel control={<Switch />} label="Favorites only" /> {/* ADD onChange to Switch */}
-                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />} onClick={handleOpen}>New Recipe</Button>
+            {/* should I justify content or keep float right */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '68rem', margin: '20px 10px'}}>
+                <FormControlLabel control={<Switch />} label="Favorites only" onChange={handleShowFavorite} />
+                <Button onClick={handleOpen} style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />}>New Recipe</Button>
             </div>
 
+            {/* New recipe pop up, consider adding transitions? */}
             <Modal open={open} onClose={handleClose}>
                 <Box>
                     <NewRecipe handleClose={handleClose} />
@@ -40,12 +62,14 @@ const RecipeBook = () => {
             </Modal>
 
             <div id="book" className="flexbox">
-                    {<Page recipes={recipes as Recipe[]} />}
+                    {<Page recipe={currentRecipe} />}
             </div>
         
-            <div className="page-button">
-                <button>L</button>
-                <button>R</button>
+            <div style={{ alignItems: 'center', justifyItems: 'center', margin: '20px'}}>
+                <Button onClick={handleLeft} style={{ borderRadius: '20px', backgroundColor: 'darkblue'}}><ArrowBackIcon /></Button>
+                <Button onClick={handleRight} style={{ borderRadius: '20px', backgroundColor: 'darkblue'}}><ArrowForwardIcon /></Button>
+                <h4>Recipe {index} of {numRecipes}</h4>
+                <h4>Show favorites: {showFavorites}</h4>
             </div>
         </>
     );
@@ -53,24 +77,4 @@ const RecipeBook = () => {
 
 export default RecipeBook;
 
-/* 
-            <div id="book" className="flexbox">
-                <div id="page">
-                    <h2>Dish Name</h2>
-                    <img src={empty} style={{width: '100%', height: '50%'}}></img>
-                    <p className="text-center">Description</p>
-                    <p>Cuisine: </p>
-                    <p>Time required: </p>
-                    <p>Skill level: </p>
-                    <p>Ingredients:</p>
-                    <ul>
-                        <ol>First </ol>
-                    </ul>
-                </div>
-                <div id="divider" />
-                <div id="page">
-                    <h2 className="text-center">Steps</h2>
-                    <p>Steps, steps, steps, Steps, steps, steps, Steps, steps, steps, Steps, steps, steps, pSteps, steps, steps</p>
-                </div>
-            </div>
-*/
+// JSON VERSION

@@ -3,11 +3,11 @@ import { Ingredient } from "./ingredient";
 export interface Recipe {
     id: string; // unique identifier (generate hash for Firestore document ID)
     name: string;
-    isFavorite: boolean //false by default
+    isFavorite: boolean; //false by default
     imageURL: string;
-    skillLevel: "Beginner" | "Medium" | "Advanced";
+    skillLevel: "Beginner" | "Medium" | "Advanced"; // makes some ts issues
     timeNeeded: string;
-    cuisine: "" //predefine cuisine OPTIONS here
+    cuisine: "Italian" | "Indian" | "Other"; //predefine cuisine OPTIONS here
     ingredients: Ingredient[];
     description: string;
     steps: string;
@@ -26,3 +26,6 @@ export interface NewRecipeOverlayProps extends Partial<RecipeInfoProps> {
     handleClose?: () => void;
 }
 
+export interface BookPageProps {
+    recipe: Recipe;
+}

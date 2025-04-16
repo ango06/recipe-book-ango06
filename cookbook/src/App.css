@@ -1,6 +1,4 @@
-body {
-    
-}
+/* I tried to use rem but still px for some things so hopefully it's not wonky */
 
 h1 {
     font-size: 4rem;
@@ -58,16 +56,12 @@ section {
 }
 
 #book {
-    width: 70%;
+    width: 70rem;
     height: 38rem;
     align-self: center;
     justify-self: center;
     border-radius: 20px;
     background-color:navajowhite;
-}
-.page {
-    flex: 1;
-    padding: 40px;
 }
 #divider {
     width: 0.25rem;
@@ -76,6 +70,10 @@ section {
 }
 #book ul {
     list-style-type:square;
+}
+.page {
+    flex: 1;
+    padding: 15px 40px;
 }
 
 
@@ -125,13 +123,4 @@ section {
     background-color: darkcyan;
 }
 
-.page-button {
-    align-items: center;
-    justify-content: space-around;
-    justify-items: center;
-}
-.page-button button {
-    padding: 10px;
-    color: white;
-    background-color: midnightblue;
-}
+
