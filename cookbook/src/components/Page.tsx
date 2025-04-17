@@ -13,7 +13,7 @@ const Page: React.FC<BookPageProps> = ({ recipe }) => {
                 <p><b>Skill level:</b> {recipe.skillLevel}</p>
                 <p><b>Ingredients:</b> </p>
                 <ul>
-                    {recipe.ingredients.map(ingredient => <li>{ingredient.name} - {ingredient.quantity}</li>)}
+                    {recipe.ingredients.map(ingredient => <li key={ingredient.name}>{ingredient.name} - {ingredient.quantity}</li>)}
                 </ul>
             </div>
             <div id="divider"></div>

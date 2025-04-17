@@ -41,7 +41,7 @@ const RecipeList2 = () => {
         });
     };
 
-    const recipeList = recipes; // or just pass in recipes
+    const recipeList = recipes; // or just pass in recipes prop itself
 
     return (
         <>
@@ -81,6 +81,5 @@ const RecipeList2 = () => {
 };
 
 export default RecipeList2;
-
 
 // FIREBASE VERSION

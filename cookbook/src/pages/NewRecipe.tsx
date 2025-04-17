@@ -1,29 +1,72 @@
 import { useState } from 'react';
 
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { getFirestore } from "firebase/firestore";
+
+import { addRecipe } from "../handleRecipes.ts";
+import { Recipe } from "../types/recipe.ts";
+import { Ingredient } from "../types/ingredient.ts";
 
 import { NewRecipeOverlayProps } from "../types/recipe.ts";
 
-const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
+// Material UI
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
 
-    const [formData, setFormData] = useState({
-        dishName: "",
-        imageURL: "",
-        skillLevel: "", 
-        timeNeeded: "",
-        cuisine: "",
-        description: "",
-        steps: ""
-    });
+const initialState: Recipe = {
+    id: "",
+    name: "",
+    isFavorite: false,
+    imageURL: "",
+    skillLevel: "Beginner",
+    timeNeeded: "",
+    cuisine: "Other",
+    ingredients: [],
+    description: "",
+    steps: "",
+  };
+
+const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
+    const db = getFirestore();
+    const [newRecipeData, setNewRecipeData] = useState<Recipe>(initialState);
+    const [ingredient, setIngredient] = useState<Ingredient>({ quantity: "", name: "" });
+    // const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
+    // handle ingredients array
+    const handleIngredientAdd = () => {
+        const { name, quantity } = ingredient;
+
+        if (!name.trim() || !quantity.trim()){
+            return;
+        }
+
+        setNewRecipeData((prev) => ({
+            ...prev,
+            ingredients: [...prev.ingredients, { name, quantity }],
+        }));
+
+        // clear input fields
+        setIngredient({ name: "", quantity: "" });
+    };
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target; // each needs a name and value
-        setFormData(data => ({ ...data, [name]: value }));
+        setNewRecipeData(data => ({ ...data, [name]: value }));
     }
-    
-    // do ingredients
-    // handle submit
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+          await addRecipe(db, newRecipeData as Recipe);
+          alert("Recipe added successfully!");
+          handleClose?.();
+          setNewRecipeData(initialState);
+        } catch (error) {
+          console.error("Error adding recipe:", error);
+        }
+      };
+
 
     return (
         <div className="top-space overlay scroll" style={{ height: '48rem'}}>
@@ -31,84 +74,62 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                 <CloseIcon style={{ position: 'absolute', left: 0, margin: 0, fontSize: '40px', cursor: 'pointer'}} onClick={handleClose} />
                 <h2 className="text-center">New Dish</h2>
             </div>
-           
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                <TextField
-                    name="dishName"
-                    value={formData.dishName}
-                    onChange={handleFormChange}
-                    required
-                    label="Dish name"
-                    variant="filled"
-                />
-                <TextField
-                    name="imageURL"
-                    value={formData.imageURL}
-                    onChange={handleFormChange}
-                    required
-                    label="Image URL"
-                    variant="filled"
-                />
 
-                {/* remove demo tag? */}
+            <ul>
+            {newRecipeData.ingredients.map((ing, idx) => (
+                <li key={idx}>
+                {ing.quantity} {ing.name}
+                </li>
+            ))}
+            </ul>
+           
+            <form onSubmit={handleSubmit}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                <TextField name="name" value={newRecipeData.name}
+                    onChange={handleFormChange}
+                    label="Dish name" required variant="filled"
+                />
+                <TextField name="imageURL" value={newRecipeData.imageURL}
+                    onChange={handleFormChange}
+                    label="Image URL" required variant="filled"
+                />
                 <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">Skill level</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label" 
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel value="beginner" control={<Radio />} label="Beginner" />
-                        <FormControlLabel value="medium" control={<Radio />} label="Medium" />
-                        <FormControlLabel value="advanced" control={<Radio />} label="Advanced" />
+                    <FormLabel>Skill level</FormLabel>
+                    <RadioGroup name="skillLevel" value={newRecipeData.skillLevel} onChange={handleFormChange}>
+                        <FormControlLabel value="Beginner" control={<Radio />} label="Beginner" />
+                        <FormControlLabel value="Medium" control={<Radio />} label="Medium" />
+                        <FormControlLabel value="Advanced" control={<Radio />} label="Advanced" />
                     </RadioGroup>
                 </FormControl>
-
-                <TextField
-                    name="timeNeeded"
-                    value={formData.timeNeeded}
+                <TextField name="timeNeeded" value={newRecipeData.timeNeeded}
                     onChange={handleFormChange}
-                    label="Time needed"
-                    type="number"
-                    variant="filled"
-                    slotProps={{
-                        inputLabel: {
-                        shrink: true,
-                        },
-                    }}
+                    label="Time needed" variant="filled"
                 />
-
                 <FormControl>
                     <FormLabel>Cuisine</FormLabel>
-                    <RadioGroup>
-                        <FormControlLabel value="italian" control={<Radio />} label="Italian" />
-                        <FormControlLabel value="indian" control={<Radio />} label="Indian" />
-                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <RadioGroup name="cuisine" value={newRecipeData.cuisine} onChange={handleFormChange}>
+                        <FormControlLabel value="Italian" control={<Radio />} label="Italian" />
+                        <FormControlLabel value="Indian" control={<Radio />} label="Indian" />
+                        <FormControlLabel value="Other" control={<Radio />} label="Other" />
                     </RadioGroup>
                 </FormControl>
 
                 <h3>Ingredients</h3>
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
-                    <Button variant="contained">+</Button>
+                    <Button onClick={handleIngredientAdd}><AddIcon/></Button>
                     <TextField
-                        label="Quantity"
-                        type="number"
-                        variant="filled"
-                        slotProps={{
-                            inputLabel: {
-                            shrink: true,
-                            },
-                        }}
+                        onChange={(e) => setIngredient((prev) => ({ ...prev, name: e.target.value }))}
+                        label="name" required variant="filled"
                     />
                     <TextField
-                        required
-                        label="Name"
-                        variant="filled"
+                        onChange={(e) => setIngredient((prev) => ({ ...prev, quantity: e.target.value }))}
+                        label="quantity" variant="filled"
                     />
                 </Box>
 
                 <TextField
                     name="description"
-                    value={formData.description}
+                    value={newRecipeData.description}
                     onChange={handleFormChange}
                     label="Dish description"
                     variant="filled"
@@ -117,7 +138,7 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                 />
                 <TextField
                     name="steps"
-                    value={formData.steps}
+                    value={newRecipeData.steps}
                     onChange={handleFormChange}    
                     label="Steps"
                     variant="filled"
@@ -125,76 +146,9 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                     rows={4}
                 />
 
-                <form>
-                    <Button>SUBMIT</Button>
-                </form>
-
-                <form>
-                    <label>
-                    <input type="submit" />
-                    </label>
-                </form>
+                <Button type="submit">SUBMIT</Button>
             </Box>
-
-            {/*
-            <h6>Dish Name</h6>
-            <input type="text" id="dishName" />
-            <label htmlFor="dishName">Dish Name</label>
-            <br />
-
-            <h6>Image URL</h6>
-            <input type="image" id="dishIMG" />
-            <label htmlFor="dishIMG">Image URL</label>
-            <input type="url" id="dishIMG" />
-            <label htmlFor="dishIMG">Image URL</label>
-            <br />
-
-            <h6>Skill level</h6>
-            <input type="radio" id="b" />
-            <label htmlFor="skill">Beginner</label>
-            <input type="radio" id="m" />
-            <label htmlFor="m">Medium</label>
-            <input type="radio" id="a" />
-            <label htmlFor="a">Advanced</label>
-            <br />
-
-            <h6>Time needed</h6>
-            <input type="number" id="time" />
-            <label htmlFor="time">Time needed</label>
-            <br />
-
-            <h6>Cuisine</h6>
-            <input type="radio" id="b" />
-            <label htmlFor="skill">Italian</label>
-            <input type="radio" id="m" />
-            <label htmlFor="m">Indian</label>
-            <input type="radio" id="a" />
-            <label htmlFor="a">Continental</label>
-            <br />
-
-            <h6>Ingredients</h6>
-            <input type="button" id="addIngredient" />
-            <input type="number" id="quantityIngredient" />
-            <label htmlFor="quantityIngredient">Quantity</label>
-            <input type="text" id="nameIngredient" />
-            <label htmlFor="nameIngredient">Name</label>
-            <br />
-
-            <h6>Dish description</h6>
-            <input type="text" id="dishDescription" />
-            <label htmlFor="dishDescription">Dish description</label>
-            <br />
-
-            <h6>Steps</h6>
-            <input type="text" id="dishSteps" />
-            <label htmlFor="dishSteps">Steps</label>
-            <br />
-
-            <h6>Submit button</h6>
-            <input type="submit" id="submit" />
-            <label htmlFor="submit">Submit</label>
-            <br />
-            */}
+            </form>
         </div>
     )
 };

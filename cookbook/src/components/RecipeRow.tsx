@@ -35,12 +35,14 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
     };
     const handleClose = () => setOpen(false);
 
+    // remove recipe
     const handleRemove = async (recipe: Recipe) => {
-        const selectedRecipe = recipe; // different than the state variable 
+        const recipeToRemove = recipe;
         try {
-            const currentRecipeReference = await getRecipe(db, selectedRecipe.name);
+            const currentRecipeReference = await getRecipe(db, recipeToRemove.name);
             if (currentRecipeReference) {
-                removeRecipe(currentRecipeReference);
+                await removeRecipe(currentRecipeReference);
+                setLocalRecipes(prev => prev.filter(r => r.id !== recipe.id));
             }
         } catch (err) {
             console.error("Failed to remove recipe:", err);
@@ -49,20 +51,20 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
 
     // Favorite and unfavorite button
     const toggleFavorite = async (recipe: Recipe) => {
-        const selectedRecipe = recipe; // different than the state variable 
+        const chosenRecipe = recipe;
 
         try {
-            const currentRecipeReference = await getRecipe(db, selectedRecipe.name);
+            const currentRecipeReference = await getRecipe(db, chosenRecipe.name);
             if (!currentRecipeReference){
                 console.warn("Recipe reference not found.");
                 return;
             }
 
-            await changeFavorite(currentRecipeReference, selectedRecipe.isFavorite);
+            await changeFavorite(currentRecipeReference, chosenRecipe.isFavorite);
     
             // Update the local state so the UI can update immediately
             const updatedRecipes = localRecipes.map(recipe =>
-                recipe.id === selectedRecipe.id ? { ...recipe, isFavorite: !recipe.isFavorite } : recipe
+                recipe.id === chosenRecipe.id ? { ...recipe, isFavorite: !recipe.isFavorite } : recipe
             );
             setLocalRecipes(updatedRecipes);
             console.log("FAVORITE UPDATED")
@@ -74,15 +76,31 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
     return (
         <>
             {localRecipes.map(recipe => (
-                <tr key={recipe.id}>
+                <tr key={recipe.id || recipe.name}>
                     <td ><CloseIcon onClick={() => handleRemove(recipe)} style={{ cursor: 'pointer' }} /></td>
                     <td onClick={() => handleOpen(recipe)} style={{ cursor: 'pointer' }}>{recipe.name}</td>
                     <td className="text-center">{recipe.cuisine}</td>
                     <td className="text-center">{recipe.timeNeeded}</td>
                     <td className="text-center">{recipe.skillLevel}</td>
                     <td>{recipe.description}</td>
-                    <td onClick={() => toggleFavorite(recipe)} style={{ cursor: 'pointer' }}>
-                        {recipe.isFavorite ? <BookmarkIcon style={{ cursor: 'pointer' }} /> : <BookmarkBorderIcon style={{ cursor: 'pointer'}} />}
+                    <td>
+                        {recipe.isFavorite ? (
+                            <BookmarkIcon
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleFavorite(recipe);
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            />
+                        ) : (
+                            <BookmarkBorderIcon
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleFavorite(recipe);
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            />
+                        )}
                     </td>
                 </tr>
             ))}
@@ -101,24 +119,8 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
 export default RecipeRow;
 
 /**
-    Toggle by clicking on icon, not td
-    <td>
-    {recipe.isFavorite ? (
-        <BookmarkIcon
-        onClick={(e) => {
-            e.stopPropagation(); // Prevent row click
-            toggleFavorite(recipe.id, recipe.isFavorite);
-        }}
-        style={{ cursor: 'pointer' }}
-        />
-    ) : (
-        <BookmarkBorderIcon
-        onClick={(e) => {
-            e.stopPropagation(); // Prevent row click
-            toggleFavorite(recipe.id, recipe.isFavorite);
-        }}
-        style={{ cursor: 'pointer' }}
-        />
-    )}
+    Toggle by clicking on td
+    <td onClick={() => toggleFavorite(recipe)} style={{ cursor: 'pointer' }}>
+        {recipe.isFavorite ? <BookmarkIcon style={{ cursor: 'pointer' }} /> : <BookmarkBorderIcon style={{ cursor: 'pointer'}} />}
     </td>
 */

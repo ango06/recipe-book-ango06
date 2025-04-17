@@ -56,7 +56,6 @@ const RecipeBook = () => {
 
     // current recipe 
     const currentRecipe = recipes[index - 1];
-    console.log(currentRecipe);
 
     // show favorites or not
     // using showFavorites (prevState) bc the state doesn't update immediately
@@ -68,6 +67,8 @@ const RecipeBook = () => {
             const newState = !showFavorites; // toggle favorite or unfavorite
             const visibleRecipes = newState ? recipes.filter(recipe => recipe.isFavorite) : allRecipes;
             setRecipes(visibleRecipes);
+            setIndex(1);
+            setNumRecipes(visibleRecipes.length);
             return newState;
         });
     };

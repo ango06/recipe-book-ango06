@@ -8,7 +8,11 @@ import { Recipe } from "./types/recipe.ts";
 export async function getRecipes(db: Firestore) {
     const recipesCol = collection(db, 'recipes');
     const recipeSnapshot = await getDocs(recipesCol);
-    const recipeList = recipeSnapshot.docs.map(doc => doc.data()) as Recipe[];
+    const recipeList = recipeSnapshot.docs.map(doc => ({
+        id: doc.id, // this was necessary for toggling favorites
+        ...doc.data()
+    })) as Recipe[];
+    
     return recipeList;
 }
 
@@ -30,6 +34,7 @@ export async function getRecipe(db: Firestore, name: string){
 export async function addRecipe(db: Firestore, recipe: Recipe){ // interface
     const recipes = collection(db, "recipes");
     await addDoc(recipes, {
+        id: recipe.id,
         name: recipe.name,
         isFavorite: recipe.isFavorite,
         imageURL: recipe.imageURL,
