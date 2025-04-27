@@ -6,7 +6,7 @@ import { removeRecipe } from "../handleRecipes.ts";
 
 import { RecipeInfoProps } from "../types/recipe.ts";
 
-import DishOverlayInfo from "../components/DishOverlayInfo.tsx";
+import DishOverlayInfo from "./DishOverlay.tsx";
 import { Recipe } from "../types/recipe.ts";
 
 import { Box, Modal } from '@mui/material';

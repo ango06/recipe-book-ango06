@@ -1,27 +1,21 @@
 import './App.css'
 
 import { BrowserRouter, Routes, Route } from "react-router";
-import NavBar from "./components/NavBar.tsx";
+import Navbar from './components/NavBar.tsx';
 import Home from "./pages/Home.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
-
-import RecipeList from "./pages/RecipeList_fb.tsx";
-import RecipeBook from "./pages/RecipeBook_fb.tsx";
-import TestRecipes from "./test.tsx";
+import RecipeList from "./pages/RecipeList.tsx";
+import RecipeBook from "./pages/RecipeBook.tsx";
 
 function App() {
-
   return (
     <BrowserRouter>
-      <NavBar />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/recipe-list" element={<RecipeList />} />
         <Route path="/recipe-book" element={<RecipeBook />} />
         <Route path="*" element={<PageNotFound />} />
-
-        {/** TESTING THINGS HERE */}
-        <Route path="/test" element={<TestRecipes />} />
       </Routes>
     </BrowserRouter>
   );

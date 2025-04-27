@@ -1,47 +1,55 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import recipesData from "../recipes.json";
+import { getFirestore } from "firebase/firestore";
+
+import { getRecipes } from "../handleRecipes.ts";
 import { Recipe } from "../types/recipe.ts";
+
 import RecipeRow from "../components/RecipeRow.tsx";
 import NewRecipe from "./NewRecipe.tsx";
 
 import { Button, Box, FormControlLabel, Modal, Switch } from '@mui/material';
-import { createSvgIcon } from '@mui/material'; // ble, TableContainer, TableBody, TableHead, TableRow, TableCell
+import AddIcon from '@mui/icons-material/Add';
 
-const RecipeList = () => {
+const RecipeList2 = () => {
+    const db = getFirestore();
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
+    const [showFavorites, setShowFavorites] = useState(false);
+
+    // upon mount or db change
+    useEffect(() => {
+        async function fetchData() {
+            const recipeList = await getRecipes(db);
+            setRecipes(recipeList);
+            setAllRecipes(recipeList);
+        }
+        fetchData();
+    }, [db]);
 
     // New Recipe pop up
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // Turning on favorites only
-    const [showFavorites, setFavoritesOnly] = useState(false);
-    const handleShowFavorite = () => setFavoritesOnly(!showFavorites);
+    const handleShowFavorites = () => {
+        setShowFavorites(showFavorites => { // doesn't have to be showFavorites
+            const newState = !showFavorites;
+            const visibleRecipes = newState ? recipes.filter(recipe => recipe.isFavorite) : allRecipes;
+            setRecipes(visibleRecipes);
+            return newState;
+        });
+    };
 
-
-    {/* if I don't import from the icon thing */}
-    const PlusIcon = createSvgIcon(
-        // credit: plus icon from https://heroicons.com
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-        >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>,
-        'Plus',
-        );
+    const recipeList = recipes; // or just pass in recipes prop itself
 
     return (
         <>
             <h1 className="text-center top-space">Chef's List</h1>
 
             <div style={{ margin: '1rem 8.5rem'}}>
-                <FormControlLabel control={<Switch />} label="Favorites only" onChange={handleShowFavorite} />
-                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<PlusIcon />} onClick={handleOpen}>New Recipe</Button>
+                <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites} />
+                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />} onClick={handleOpen}>New Recipe</Button>
             </div>
 
             <Modal open={open} onClose={handleClose}>
@@ -64,7 +72,7 @@ const RecipeList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {<RecipeRow recipes={recipesData.recipes as Recipe[]} />}
+                        {<RecipeRow recipes={recipeList} />}
                     </tbody>
                 </table>
             </section>
@@ -72,7 +80,6 @@ const RecipeList = () => {
     );
 };
 
-export default RecipeList;
+export default RecipeList2;
 
-
-// JSON VERSION
+// FIREBASE VERSION

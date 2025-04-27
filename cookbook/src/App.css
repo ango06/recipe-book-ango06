@@ -13,39 +13,55 @@ section {
     margin: 10px;
 }
 
+/* ABOUT THE CHEF */
+#about h1, h2 {
+    color: #264653;
+}
+#about h2 {
+    margin: 1rem 0;
+}
+#about img {
+    border-style: solid;
+    border-width: 10px;
+    border-color: #2a9d8f;
+    border-radius: 20px;
+}
+
+/* NAVBAR */
 #navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-
     position: fixed;
     top: 0;
     width: 100%;
-    
-    background-color: pink;
+    background-color: #e9c46a;
+    z-index: 9999;
 }
 #navbar li {
     float: right;
-
     font-size: 1.5rem;
 }
 #navbar li a {
     display: block;
     padding: 1rem;
-    background-color: #dddddd;
     text-decoration: none;
 }
 #navbar li a:hover {
-    background-color: blue;
+    background-color: #f4a261;
+}
+#navbar li a:visited {
+    color: black;
 }
 
+/* RECIPES */
 #recipes {
     width: 100%;
-    background-color: lightsalmon;
+    background-color: #c4fff7;
     border-collapse: collapse
 }
 #recipes thead {
-    background-color: palevioletred;
+    background-color: #38cfba;
 }
 #recipes tr {
     border-bottom: 1px solid black;
@@ -55,13 +71,14 @@ section {
     border: none;
 }
 
+/* RECIPE BOOK */
 #book {
     width: 70rem;
     height: 38rem;
     align-self: center;
     justify-self: center;
     border-radius: 20px;
-    background-color:navajowhite;
+    background-color: #F5ECD9;
 }
 #divider {
     width: 0.25rem;
@@ -98,13 +115,6 @@ section {
     justify-content: space-around;
 }
 
-/* unused ?? */
-.flexCol {
-    display: flex;
-    flex-direction: column;
-    justify-content:space-around;
-}
-
 .text-center {
     text-align: center;
 }
@@ -112,15 +122,3 @@ section {
 .top-space {
     margin-top: 80px;
 }
-
-/* not used */
-.new-recipe-button {
-    float: right;
-    padding: 10px;
-    border-radius: 20px;
-    font-size: 1rem;
-    color: white;
-    background-color: darkcyan;
-}
-
-
