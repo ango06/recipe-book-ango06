@@ -78,7 +78,7 @@ const RecipeBook = () => {
             {/* should I justify content or keep float right */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '68rem', margin: '20px 10px'}}>
                 <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites} />
-                <Button onClick={handleOpen} style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />}>New Recipe</Button>
+                <Button onClick={handleOpen} style={{ float: 'right', borderRadius: '20px', backgroundColor: '#264653'}} variant="contained" endIcon={<AddIcon />}>New Recipe</Button>
             </div>
 
             <Modal open={open} onClose={handleClose}>

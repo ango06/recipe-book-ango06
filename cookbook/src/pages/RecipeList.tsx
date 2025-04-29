@@ -49,7 +49,7 @@ const RecipeList2 = () => {
 
             <div style={{ margin: '1rem 8.5rem'}}>
                 <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites} />
-                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: 'darkblue'}} variant="contained" endIcon={<AddIcon />} onClick={handleOpen}>New Recipe</Button>
+                <Button style={{ float: 'right', borderRadius: '20px', backgroundColor: '#264653'}} variant="contained" endIcon={<AddIcon />} onClick={handleOpen}>New Recipe</Button>
             </div>
 
             <Modal open={open} onClose={handleClose}>

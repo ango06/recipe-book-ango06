@@ -107,7 +107,7 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
 
             <Modal open={open} onClose={handleClose}>
                 <Box>
-                    <div className="top-space overlay scroll" style={{ height: '48rem' }}>
+                    <div className="top-space overlay scroll" style={{ height: '36rem' }}>
                         {<DishOverlayInfo recipe={selectedRecipe as Recipe} handleClose={handleClose} />}
                     </div>
                 </Box>

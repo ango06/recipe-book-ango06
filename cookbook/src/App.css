@@ -1,5 +1,11 @@
 /* I tried to use rem but still px for some things so hopefully it's not wonky */
 
+/* another color #e76f51 */
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+}
+
 h1 {
     font-size: 4rem;
 }
@@ -104,9 +110,8 @@ section {
     padding: 20px;
     align-self: center;
     justify-self: center;
-    background-color:darksalmon;
+    background-color: #f4a261;
     border-radius: 20px;
-    color:darkslateblue;
 }
 
 .flexbox {

@@ -69,19 +69,11 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
 
 
     return (
-        <div className="top-space overlay scroll" style={{ height: '48rem'}}>
+        <div className="top-space overlay scroll" style={{ height: '36rem'}}>
             <div style={{ display: 'flex', justifyContent: 'center', position: 'relative'}}>
                 <CloseIcon style={{ position: 'absolute', left: 0, margin: 0, fontSize: '40px', cursor: 'pointer'}} onClick={handleClose} />
                 <h2 className="text-center">New Dish</h2>
             </div>
-
-            <ul>
-            {newRecipeData.ingredients.map((ing, idx) => (
-                <li key={idx}>
-                {ing.quantity} {ing.name}
-                </li>
-            ))}
-            </ul>
            
             <form onSubmit={handleSubmit}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -146,7 +138,7 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                     rows={4}
                 />
 
-                <Button type="submit">SUBMIT</Button>
+                <Button type="submit" style={{ backgroundColor: '#264653', color: 'white' }}>SUBMIT</Button>
             </Box>
             </form>
         </div>
