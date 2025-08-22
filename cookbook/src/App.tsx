@@ -1,4 +1,5 @@
-import './App.css'
+import "./App.css";
+import "./index.css";
 
 import { BrowserRouter, Routes, Route } from "react-router";
 import Navbar from './components/Navbar.tsx';

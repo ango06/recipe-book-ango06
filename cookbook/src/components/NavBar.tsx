@@ -6,9 +6,10 @@ const Navbar = () => {
         <nav id="navbar">
             <ul>
                 <li style={{float: 'left', alignItems: 'center'}}><Link to="/"><StarIcon /><StarIcon /><StarIcon /></Link></li>
-                <li><Link to="/recipe-book">Recipe Book</Link></li>
-                <li><Link to="/recipe-list">Recipe List</Link></li>
-                <li><Link to="/">Home</Link></li>
+                <div id="navbar-links">
+                    <li><Link to="/recipe-list">Recipe List</Link></li>
+                    <li><Link to="/recipe-book">Recipe Book</Link></li>
+                </div>
             </ul>
         </nav>
     );

@@ -64,9 +64,7 @@ const RecipeList2 = () => {
                         <tr>
                             <th></th>
                             <th>Dish</th>
-                            <th>Cuisine</th>
                             <th>Time</th>
-                            <th>Skill Level</th>
                             <th>Description</th>
                             <th></th>
                         </tr>
@@ -83,3 +81,7 @@ const RecipeList2 = () => {
 export default RecipeList2;
 
 // FIREBASE VERSION
+
+/*
+remove cuisine, level from firebase
+*/

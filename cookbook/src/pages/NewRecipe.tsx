@@ -9,7 +9,7 @@ import { Ingredient } from "../types/ingredient.ts";
 import { NewRecipeOverlayProps } from "../types/recipe.ts";
 
 // Material UI
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -18,9 +18,7 @@ const initialState: Recipe = {
     name: "",
     isFavorite: false,
     imageURL: "",
-    skillLevel: "Beginner",
     timeNeeded: "",
-    cuisine: "Other",
     ingredients: [],
     description: "",
     steps: "",
@@ -85,26 +83,10 @@ const NewRecipe: React.FC<NewRecipeOverlayProps> = ({ handleClose }) => {
                     onChange={handleFormChange}
                     label="Image URL" required variant="filled"
                 />
-                <FormControl>
-                    <FormLabel>Skill level</FormLabel>
-                    <RadioGroup name="skillLevel" value={newRecipeData.skillLevel} onChange={handleFormChange}>
-                        <FormControlLabel value="Beginner" control={<Radio />} label="Beginner" />
-                        <FormControlLabel value="Medium" control={<Radio />} label="Medium" />
-                        <FormControlLabel value="Advanced" control={<Radio />} label="Advanced" />
-                    </RadioGroup>
-                </FormControl>
                 <TextField name="timeNeeded" value={newRecipeData.timeNeeded}
                     onChange={handleFormChange}
                     label="Time needed" variant="filled"
                 />
-                <FormControl>
-                    <FormLabel>Cuisine</FormLabel>
-                    <RadioGroup name="cuisine" value={newRecipeData.cuisine} onChange={handleFormChange}>
-                        <FormControlLabel value="Italian" control={<Radio />} label="Italian" />
-                        <FormControlLabel value="Indian" control={<Radio />} label="Indian" />
-                        <FormControlLabel value="Other" control={<Radio />} label="Other" />
-                    </RadioGroup>
-                </FormControl>
 
                 <h3>Ingredients</h3>
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 5 }}>

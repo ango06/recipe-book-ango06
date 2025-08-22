@@ -1,3 +1,37 @@
 /*
 @import "tailwindcss";
 */
+
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+h1, h2 {
+    color: #264653;
+}
+h1 {
+    font-size: 4rem;
+}
+h2 {
+    font-size: 3rem;
+}
+p {
+    font-size: 1.5rem;
+}
+section {
+    margin: 10px;
+}
+
+
+/* COLOR PALETTE */
+/* another color #e76f51 */
+/*
+dark blue: #264653
+medium blue: #38cfba
+light blue: #c4fff7
+pinkish orange: #f4a261
+book tan: #F5ECD9
+book divider: sienna
+*/

@@ -71,12 +71,12 @@ const RecipeBook = () => {
     
     return (
         <>
-            <h1 className="text-center top-space">Cookbook</h1>
+            <h1 className="text-center top-space" style={{ marginBottom: 0 }}>Cookbook</h1>
             {/* if I ever add Tailwind, then use the spinning animation for loading circle thing */}
             {!currentRecipe && <p className="top-space" style={{ textAlign: 'center' }}>Recipe book is loading...</p>}
 
             {/* should I justify content or keep float right */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '68rem', margin: '20px 10px'}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignSelf: 'center', justifySelf: 'center', width: '68rem', margin: '10px 10px'}}>
                 <FormControlLabel control={<Switch />} label="Favorites only" checked={showFavorites} onChange={handleShowFavorites} />
                 <Button onClick={handleOpen} style={{ float: 'right', borderRadius: '20px', backgroundColor: '#264653'}} variant="contained" endIcon={<AddIcon />}>New Recipe</Button>
             </div>
@@ -92,7 +92,7 @@ const RecipeBook = () => {
                 {currentRecipe && <Page recipe={currentRecipe} />}
             </div>
         
-            <div style={{ alignItems: 'center', justifyItems: 'center', margin: '20px'}}>
+            <div style={{ alignItems: 'center', justifyItems: 'center', margin: '20px', placeSelf: 'center'}}>
                 <Button onClick={handleLeft} style={{ borderRadius: '20px', backgroundColor: '#264653'}}><ArrowBackIcon style={{color: 'white'}} /></Button>
                 <Button onClick={handleRight} style={{ borderRadius: '20px', backgroundColor: '#264653'}}><ArrowForwardIcon style={{color: 'white'}} /></Button>
                 <h4>Recipe {index} of {numRecipes}</h4>

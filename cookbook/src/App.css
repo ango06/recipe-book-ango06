@@ -1,27 +1,7 @@
-/* I tried to use rem but still px for some things so hopefully it's not wonky */
-
-/* another color #e76f51 */
-
-body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-}
-
-h1 {
-    font-size: 4rem;
-}
-h2 {
-    font-size: 3rem;
-}
-p {
-    font-size: 1.5rem;
-}
-section {
-    margin: 10px;
-}
 
 /* ABOUT THE CHEF */
-#about h1, h2 {
-    color: #264653;
+#about {
+    background-color: #F5ECD9;
 }
 #about h2 {
     margin: 1rem 0;
@@ -43,10 +23,7 @@ section {
     width: 100%;
     background-color: #e9c46a;
     z-index: 9999;
-}
-#navbar li {
-    float: right;
-    font-size: 1.5rem;
+    display: flex;
 }
 #navbar li a {
     display: block;
@@ -58,6 +35,14 @@ section {
 }
 #navbar li a:visited {
     color: black;
+}
+
+#navbar-links {
+    margin-left: auto;
+}
+#navbar-links li {
+    float: left;
+    font-size: 1.5rem;
 }
 
 /* RECIPES */
@@ -79,8 +64,8 @@ section {
 
 /* RECIPE BOOK */
 #book {
-    width: 70rem;
-    height: 38rem;
+    width: 60rem;
+    height: 30rem;
     align-self: center;
     justify-self: center;
     border-radius: 20px;
@@ -88,7 +73,7 @@ section {
 }
 #divider {
     width: 0.25rem;
-    height: 38rem;
+    height: 30rem;
     background-color:sienna;
 }
 #book ul {
@@ -127,3 +112,4 @@ section {
 .top-space {
     margin-top: 80px;
 }
+

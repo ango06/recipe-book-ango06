@@ -11,9 +11,7 @@ const DishOverlay: React.FC<DishOverlayProps> = ({ recipe, handleClose }) => {
             </div>
             <img src={recipe.imageURL} style={{width: '100%', height: '50%'}}></img>
             <p className="text-center">{recipe.description}</p>
-            <p><b>Cuisine:</b> {recipe.cuisine}</p>
             <p><b>Time required:</b> {recipe.timeNeeded}</p>
-            <p><b>Skill level:</b> {recipe.skillLevel}</p>
             <p><b>Ingredients:</b> </p>
             <ul>
                 {recipe.ingredients.map(ingredient => <li>{ingredient.name} - {ingredient.quantity}</li>)}

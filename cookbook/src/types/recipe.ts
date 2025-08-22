@@ -5,9 +5,7 @@ export interface Recipe {
     name: string;
     isFavorite: boolean; //false by default
     imageURL: string;
-    skillLevel: "Beginner" | "Medium" | "Advanced"; 
     timeNeeded: string;
-    cuisine: string; //predefine cuisine OPTIONS here
     ingredients: Ingredient[];
     description: string;
     steps: string;

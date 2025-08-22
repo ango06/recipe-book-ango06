@@ -79,9 +79,7 @@ const RecipeRow: React.FC<RecipeInfoProps> = ({ recipes }) => {
                 <tr key={recipe.id || recipe.name}>
                     <td ><CloseIcon onClick={() => handleRemove(recipe)} style={{ cursor: 'pointer' }} /></td>
                     <td onClick={() => handleOpen(recipe)} style={{ cursor: 'pointer' }}>{recipe.name}</td>
-                    <td className="text-center">{recipe.cuisine}</td>
                     <td className="text-center">{recipe.timeNeeded}</td>
-                    <td className="text-center">{recipe.skillLevel}</td>
                     <td>{recipe.description}</td>
                     <td>
                         {recipe.isFavorite ? (
